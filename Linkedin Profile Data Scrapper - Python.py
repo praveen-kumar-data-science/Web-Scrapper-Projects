@@ -19,6 +19,8 @@ warnings.filterwarnings('ignore')
 from IPython.display import clear_output
 
 PATH_TO_CHROME_DRIVER = 'chromdriver.exe'
+
+# This files stores the linkedin username and password details, go to the file and update the details of your linkedin credentials
 CREDENTIALS_FILE = 'credentials2.txt'
 # DOWNLOAD_PATH = ''
 
