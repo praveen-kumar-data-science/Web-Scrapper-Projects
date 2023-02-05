@@ -537,6 +537,7 @@ for row in df[START:END].iterrows():
         time.sleep(2)
     except Exception as e:
         print(e)
+        # If there is any error in the profile scrapping, then add those profile index into a separate csv file 'skipped_profiles.csv'
         with open('skipped_profiles.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([index, contact, company, firm_id])
