@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -30,10 +27,6 @@ df = pd.read_csv('firmid_emp_allgroup_scrape_01222023.csv')
 df['Parent company'] = df['Parent company'].str.split('(').str[0]
 df['contact_person'] = df['contact_person'].str.split('and').str[0]
 
-
-# In[ ]:
-
-
 def append_to_excel(fpath, df, sheet_name):
     with pd.ExcelWriter(fpath, mode="a", engine="openpyxl") as f:
         df.to_excel(f, sheet_name=sheet_name)
@@ -42,8 +35,6 @@ def append_to_excel(fpath, df, sheet_name):
 def create_workbook(path):
     workbook = Workbook()
     workbook.save(path) 
-#     if __name__ == "__main__": 
-#         create_workbook(fname) 
 
 def linkedin_login(EXE_PATH, CREDENTIALS_FILE):
     
@@ -63,7 +54,7 @@ def linkedin_login(EXE_PATH, CREDENTIALS_FILE):
     return driver
     
 def linkedin_scrape(id_, driver, contact_obtained, company_obtained, firm_id):
-    # Get the linkedin link
+    # Get the exact linkedin profile link of the person 
     time.sleep(3)
     search_field = driver.find_element("xpath", "//input[@aria-label='Search']")
     search_field.clear()
@@ -76,6 +67,8 @@ def linkedin_scrape(id_, driver, contact_obtained, company_obtained, firm_id):
     time.sleep(3)
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='People']"))).click()
     time.sleep(3)
+    
+    # If there is no linkedin profile for the person, we will skip
     if 'No results found' in str(driver.page_source):
         pass
     else:
@@ -514,10 +507,6 @@ def linkedin_scrape(id_, driver, contact_obtained, company_obtained, firm_id):
         df['contact_company'] = company_obtained
         append_to_excel(EXCEL_PATH, df, 'Skills')   
 
-
-# In[ ]:
-
-
 # RUN THIS FIRST IF THERE IS A BOT\n",
 # IF NO BOT JUST RUN THIS CELL AND THE NEXT CELL INSTANTLY! NO NEED TO WAIT..\n",
 
@@ -530,10 +519,6 @@ START = where_to_start('profile_count.txt')
 END = len(df)
 driver = linkedin_login(PATH_TO_CHROME_DRIVER, CREDENTIALS_FILE)
 time.sleep(2)
-
-
-# In[ ]:
-
 
 # WAIT FOR THE PREVIOUS CELL AND THEN RUN THIS CELL
 
@@ -559,16 +544,3 @@ for row in df[START:END].iterrows():
         print('Last index for START is: ', index)
         f.write(str(index))
         f.close()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
