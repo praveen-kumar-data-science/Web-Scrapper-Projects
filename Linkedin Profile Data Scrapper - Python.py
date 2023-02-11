@@ -211,7 +211,7 @@ def linkedin_scrape(id_, driver, contact_obtained, company_obtained, firm_id):
         if len(certifications) > len(new_issued):
             new_issued += ['NONE'] * (len(certifications) - len(new_issued))
             expired += ['NONE'] * (len(certifications) - len(new_issued))
-        if len(new_issued) > len(cert_entities): cert_entities += (len(new_issed) - len(cert_entities)) * ['NONE']
+        if len(new_issued) > len(cert_entities): cert_entities += (len(new_issued) - len(cert_entities)) * ['NONE']
         if len(certifications) > len(new_issued): new_issued += (len(certifications) - len(new_issued))*['NONE']
         if len(certifications) > len(expired): expired += (len(certifications) - len(expired))*['NONE']
         if len(certifications) > len(cert_entities): cert_entities += (len(certifications) - len(cert_entities))*['NONE']
